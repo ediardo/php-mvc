@@ -12,7 +12,9 @@
  */
 class Object {
     //put your code here
-    
+    protected $controller;
+    protected $model;
+    protected $view;
 }
 
 ?>

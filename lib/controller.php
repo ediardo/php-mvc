@@ -10,20 +10,20 @@
  *
  * @author ediardo
  */
-class Controller {
+class Controller  {
     protected $controller;
     protected $model;
     protected $view;
     protected $params;
+    protected $layout;
     
     function __construct($model){
         session_start();
         include_once(APP_MODELS.DS.strtolower($model).'.php');
         $this->model = new $model();
-        
-        foreach($_GET as $param => $value){
-            $this->params[$param] = $value;
-        }
+        $this->params = $_GET;
+        $this->data = $_POST;
+        $this->view = new View($this->layout,$this->controller, $this->action);
     }
     
     function check_login(){

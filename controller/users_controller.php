@@ -1,19 +1,14 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of PastesController
  *
  * @author ediardo
- * 
  */
 class UsersController extends Controller {
-
+    
     function __construct($action){
+        $this->layout = "layout";
         $this->controller = 'users';
         $this->action = $action;
         parent::__construct('User');
@@ -25,9 +20,12 @@ class UsersController extends Controller {
             $result = $this->model->showAll();
             
         }
-
+        $this->view->render();
         
     }
+    /*
+     * 
+     */
     function add(){
         
     }

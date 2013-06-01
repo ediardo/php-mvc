@@ -9,6 +9,7 @@
     include(APP_ROOT.DS.'lib'.DS.'controller.php');
     include(APP_ROOT.DS.'lib'.DS.'database.php');
     include(APP_ROOT.DS.'lib'.DS.'model.php');
+    include(APP_ROOT.DS.'lib'.DS.'view.php');
     
     $controller = $_GET['controller'];
     $action = $_GET['action'];
