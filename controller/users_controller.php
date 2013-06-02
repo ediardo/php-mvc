@@ -16,12 +16,14 @@ class UsersController extends Controller {
         
     }
     function index(){
+        
         if($this->check_login()){
             $result = $this->model->showAll();
             
         }
-        $this->view->render();
+        $this->view->set_title("Titulo");
         
+        $this->view->render();
     }
     /*
      * 

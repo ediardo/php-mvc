@@ -24,6 +24,7 @@ class Controller  {
         $this->params = $_GET;
         $this->data = $_POST;
         $this->view = new View($this->layout,$this->controller, $this->action);
+        
     }
     
     function check_login(){

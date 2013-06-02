@@ -1,5 +1,6 @@
 <?php
-    error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
+    error_reporting(0);
+    //error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
     define('DS', DIRECTORY_SEPARATOR);
     define('ROOT', getcwd());
     define('APP_ROOT',ROOT.DS.'..');
@@ -10,7 +11,6 @@
     include(APP_ROOT.DS.'lib'.DS.'database.php');
     include(APP_ROOT.DS.'lib'.DS.'model.php');
     include(APP_ROOT.DS.'lib'.DS.'view.php');
-    
     $controller = $_GET['controller'];
     $action = $_GET['action'];
     switch($controller){

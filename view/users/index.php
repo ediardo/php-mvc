@@ -5,6 +5,4 @@
  * and open the template in the editor.
  */
 ?>
-asfdasdsdasdasd
-das
-daasads
+<h2>View</h2>
