@@ -40,6 +40,10 @@ class Controller  {
             return false;
         }
     }
+    function password_salt($password){
+        return md5($password);
+    }
+    
     
 }
 

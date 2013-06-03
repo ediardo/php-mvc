@@ -13,21 +13,19 @@
 class Model extends Database{
     //put your code here
     
-    protected $model;
-    protected $table;
+    private $model;
+    private $table;
+    private $properties;
     
-    function __construct($model, $table){
+    function __construct($model, $table, $properties){
+        
+        
         $this->model = $model;
         $this->table = $table;
-        $this->host = 'localhost';
-        $this->user = 'cc409_autosiiau';
-        $this->password = 'AxI2rKBC4m';
-        $this->db = 'cc409_autosiiau';
-        $this->port = 3306;
-        $this->driver = 'mysqli';
-        parent::__construct();
+        $this->properties = $properties;
+        parent::__construct($model,'localhost','cc409_autosiiau','AxI2rKBC4m','cc409_autosiiau',3306,'mysqli');
     }
-    
+
     protected function showAll(){
         $this->execute("SELECT * FROM $this->table");
     }

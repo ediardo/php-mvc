@@ -22,15 +22,19 @@ class User extends Model {
     
 
     function __construct(){
-        parent::__construct('User','users');
+        
+        parent::__construct(get_class($this), 'users', get_class_vars(get_class($this)));
     }
     
-    function test(){
-        echo "test";
-    }
     function auth($username, $password){
-        $this->execute("SELECT * FROM users WHERE username = '$username' AND password = '$password' LIMIT 1");
-        return $this->result;
+        $result = $this->execute("SELECT users.*,groups.* FROM users INNER JOIN groups ON (groups.group_id = users.group_id) WHERE username = '$username' AND password = '$password' AND status IN (1) LIMIT 1");
+        if($this->get_num_rows() > 0){
+            $_SERVER["user_id"] =  $result["User"]["user_id"];
+            $_SERVER["username"] =  $result["User"]["username"];
+            $_SERVER["power"] =  $result["User"]["power"];
+            return true;
+        }else
+            return false;
     }
 
 }

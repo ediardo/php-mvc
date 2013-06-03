@@ -57,22 +57,15 @@ class UsersController extends Controller {
     function login(){
         $this->layout = "login";
         $this->view->set_title("Login");
-        /*
-        $result = $this->model->auth($this->params['username'], $this->params['password']);
-        
-        if($result->num_rows == 1){
-            
-            
-            while($row = mysqli_fetch_assoc($result)){
-
-                $_SESSION['user_id'] = $row['user_id'];
-                $_SESSION['username'] = $row['username'];
-                $_SESSION['email'] = $row['email'];
+        // si se envio datos por POST
+        if(!empty($this->data)){
+            if($this->model->auth($this->data['username'], $this->password_salt($this->data['password']))){
+                $this->redirect("index.php?controller=users&action=index");
+            }else{
+                echo "contrasena mal";
             }
-            echo "sesion";
+            
         }
-         * 
-         */
     }
 }
 
