@@ -27,6 +27,12 @@ class Controller  {
         
     }
     
+    function __destruct(){
+        $this->view->render();
+    }
+    function redirect($url){
+        header("Location: $url") ;
+    }
     function check_login(){
        if(!empty($_SESSION['user_id'])){
             return true;

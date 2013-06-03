@@ -18,16 +18,15 @@
             include(APP_CONTROLLERS.DS.$controller.'_controller.php');
             $User = new UsersController($action);
             break;
-        case 'pastes':
+        case 'numbers':
             include(APP_CONTROLLERS.DS.$controller.'_controller.php');
+            $Number = new NumbersController($action);
             break;
         case 'comments':
             include(APP_CONTROLLERS.DS.$controller.'_controller.php');
             
             $Comment = new CommentsController($action);
             break;
-        
-        
     }
 
 ?>

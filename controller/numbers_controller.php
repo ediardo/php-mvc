@@ -14,6 +14,14 @@
 class NumbersController extends Controller{
     //put your code here
     
+     function __construct($action){
+        $this->layout = "layout";
+        $this->controller = 'numbers';
+        $this->action = $action;
+        parent::__construct('Number');
+        $this->$action();
+        
+    }
     /*
      * Muestra el listado de reportes
      * @
@@ -30,6 +38,10 @@ class NumbersController extends Controller{
     }
     
     function edit(){
+        
+    }
+    
+    function search(){
         
     }
 }

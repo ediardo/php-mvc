@@ -8,7 +8,10 @@
 class UsersController extends Controller {
     
     function __construct($action){
-        $this->layout = "layout";
+        if($this->action = "login")
+            $this->layout = "login";
+        else
+            $this->layout = "layout";
         $this->controller = 'users';
         $this->action = $action;
         parent::__construct('User');
@@ -17,13 +20,12 @@ class UsersController extends Controller {
     }
     function index(){
         
-        if($this->check_login()){
-            $result = $this->model->showAll();
-            
+        if(!$this->check_login()){
+           $this->redirect("index.php?controller=users&action=login");
         }
-        $this->view->set_title("Titulo");
         
-        $this->view->render();
+        
+        
     }
     /*
      * 
@@ -53,7 +55,9 @@ class UsersController extends Controller {
         
     }
     function login(){
-        
+        $this->layout = "login";
+        $this->view->set_title("Login");
+        /*
         $result = $this->model->auth($this->params['username'], $this->params['password']);
         
         if($result->num_rows == 1){
@@ -67,6 +71,8 @@ class UsersController extends Controller {
             }
             echo "sesion";
         }
+         * 
+         */
     }
 }
 

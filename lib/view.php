@@ -9,13 +9,13 @@ class View {
     function __construct($layout, $controller, $action) {
         $this->layout = $layout;
         $this->controller = $controller;
-            $this->action = $action;
+        $this->action = $action;
     }
 
     /** Set Variables **/
 
     function set($name,$value) {
-            $this->variables[$name] = $value;
+        $this->variables[$name] = $value;
     }
 
     /** Display Template **/

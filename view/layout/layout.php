@@ -1,8 +1,7 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
-        <title><?php echo $this->title; ?></title>
+        <title>Reportel - <?php echo $this->title; ?></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap -->
@@ -12,24 +11,27 @@
         <script src="js/bootstrap.min.js"></script>
     </head>
     <body>
-        <div class="navbar navbar-fixed-top navbar-inverse">
-            <div class="navbar-inner">
-              <div class="container">
-                <a class="brand" href="#">Reportel</a>
-                <ul class="nav">
-                  <li class="active"><a href="#">Buscar</a></li>
-                  <li><a href="#about">Reportar</a></li>
-                  <li><a href="#contact">Mi cuenta</a></li>
-                </ul>
-              </div>
-            </div>
-      </div>
+        
+
+        
         <div class="container">
-            
+            <div class="navbar navbar-static-top navbar-inverse">
+                <div class="navbar-inner">
+                <a class="brand" href="#">Reportel</a>
+                    <ul class="nav">
+                        <li><a href="#">Buscar numero</a></li>
+                        <li><a href="#">Denunciar</a></li>
+                        <li><a href="index.php?controller=users&action=index">Mi cuenta</a></li>
+                    </ul>
+                </div>
+        </div>
             <?php
             include $this->content;
             ?>
         </div>
+        
+        
+        <div class="footer"><p class="text-center">asd</p></div>
         
     </body>
 </html>
