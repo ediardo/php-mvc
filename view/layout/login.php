@@ -10,38 +10,43 @@
         <script src="js/jquery-1.10.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <style media="screen" type="text/css">
-            html, body {
-        background-color: #eee;
-      }
-      body {
-        padding-top: 40px; 
-      }
-            .container {
-        width: 300px;
-      }
+        html, body {
+            background-color: #eee;
+        }
+        body {
+            padding-top: 40px; 
+        }
 
-      /* The white background content wrapper */
-      .container > .content {
-        background-color: #fff;
-        padding: 20px;
-        margin: 0 -20px; 
-        -webkit-border-radius: 10px 10px 10px 10px;
-           -moz-border-radius: 10px 10px 10px 10px;
-                border-radius: 10px 10px 10px 10px;
-        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-                box-shadow: 0 1px 2px rgba(0,0,0,.15);
-      }
-
-	  .login-form {
-		margin-left: 65px;
-	  }
-	
-	  legend {
-		margin-right: -50px;
-		font-weight: bold;
-	  	color: #404040;
-	  }
+        .form-signin,.form-signup {
+          
+          padding: 19px 29px 29px;
+          margin: 0 auto 20px;
+          background-color: #fff;
+          border: 1px solid #e5e5e5;
+          -webkit-border-radius: 5px;
+             -moz-border-radius: 5px;
+                  border-radius: 5px;
+          -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+             -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        }
+        .form-signin{
+            max-width: 300px;
+        }
+        .form-signup{
+            max-width: 550px;
+        }
+        .form-signin .form-signin-heading,
+        .form-signin .checkbox {
+          margin-bottom: 10px;
+        }
+        .form-signin input[type="text"],
+        .form-signin input[type="password"] {
+          font-size: 16px;
+          height: auto;
+          margin-bottom: 15px;
+          padding: 7px 9px;
+        }
             </style>
         
     </head>

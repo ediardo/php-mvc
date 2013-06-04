@@ -8,7 +8,7 @@
 class UsersController extends Controller {
     
     function __construct($action){
-        if($this->action = "login")
+        if($action == "login" || $action == "add")
             $this->layout = "login";
         else
             $this->layout = "layout";
@@ -31,7 +31,30 @@ class UsersController extends Controller {
      * 
      */
     function add(){
-        
+        $errors = array();
+        $this->view->title = "Registrar nueva cuenta";
+        if(!empty($this->data)){
+            if(preg_match("/^[a-z\d_]{2,20}$/i",$this->data["username"])){
+                $this->model->username = $this->data["username"];
+            }else{
+                $errors[] = "Formato de usuario incorrecto";
+            }
+            if (preg_match("/^[a-z0-9_-]{6,40}$/i", $this->data["password_1"]) &&  $this->data["password_1"] == $this->data["password_2"]){
+                $this->model->password = $this->password_salt($this->data["password_1"]);
+            }else{
+                
+            }if(preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/", $this->data["email"])){
+                $this->model->email = $this->data["email"];
+            }else{
+                $errors[] = "Formato de email incorrecto";
+            }
+            if(empty($errors)){
+                $this->model->group_id = 2;
+                $this->model->save();
+            }else{
+                echo "todo mal";
+            }
+        }
     }
     /*
      * asda
@@ -56,7 +79,7 @@ class UsersController extends Controller {
     }
     function login(){
         $this->layout = "login";
-        $this->view->set_title("Login");
+        $this->view->title = "Login";
         // si se envio datos por POST
         if(!empty($this->data)){
             if($this->model->auth($this->data['username'], $this->password_salt($this->data['password']))){
@@ -66,6 +89,11 @@ class UsersController extends Controller {
             }
             
         }
+    }
+    
+    function new_account_email($user_id){
+        $this->model->user_id = $user_id;
+        $result = $this->model->searchById();
     }
 }
 

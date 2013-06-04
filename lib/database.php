@@ -82,10 +82,7 @@ class Database{
             return false;
         }
     }
-    public function __set($name, $value){
-        echo "Setting '$name' to '$value'\n";
-        $this->data[$name] = $value;
-    }
+    
     protected function parse_result(){
         $arr[$this->model] = array();
         while($row = $this->result->fetch_assoc()){

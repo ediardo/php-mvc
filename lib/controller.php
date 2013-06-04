@@ -24,7 +24,6 @@ class Controller  {
         $this->params = $_GET;
         $this->data = $_POST;
         $this->view = new View($this->layout,$this->controller, $this->action);
-        
     }
     
     function __destruct(){
@@ -43,6 +42,9 @@ class Controller  {
     function password_salt($password){
         return md5($password);
     }
+    
+    
+   
     
     
 }
