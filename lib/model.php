@@ -41,21 +41,25 @@ class Model extends Database{
         
     }
     function searchById($id = null){
-        return $this->execute("SELECT * FROM $this->table WHERE ".key($properties[0])." = $properties[0]");
+        $keys = array_keys($this->properties);
+        $magic_id_name = $keys[0];
+        $id = (empty($id))? $this->properties[$magic_id_name] : $id;
+        return $this->execute("SELECT * FROM $this->table WHERE ".$magic_id_name." = $id");
+        
+        
     }
     function save($data = null){
         if(empty($this->properties[0])){
-            $sql_type = "insert";
+            $sql_verb = "insert";
             $sql = "INSERT INTO $this->table SET ";
         }else{
-            $sql_type = "update";
+            $sql_verb = "update";
             $sql = "UPDATE $this->table SET ";
         }
         
         $fields = "";
         $values = "";
         $fields_count = count($this->properties);
-        echo $fields_count;
         $x = 0;
         foreach($this->properties as $field => $value){
             
@@ -73,8 +77,20 @@ class Model extends Database{
                         $values .= "$field = ".$value.",";  
                     break;
             }
+           
             ++$x;
                 
+        }
+        if($sql_verb == "insert"){
+            if(key_exists("created", $this->properties))
+               $values .= ",created = NOW()";
+            if(key_exists("modified", $this->properties)){
+               $values .= ",modified = NOW()";
+            }
+        }
+        if($sql_verb == "update"){
+            if(key_exists("modified", $this->properties))
+               $values .= ",modified = NOW()";
         }
             /*
             if($x == 0){
@@ -106,8 +122,8 @@ class Model extends Database{
              */
             
         
-        $sql .= $fields." VALUES ".$values;
-        echo $sql;
+        $sql .= $fields." ".$values;
+        return $this->execute($sql);
         
     }
     

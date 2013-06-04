@@ -26,6 +26,8 @@ class Database{
     private $num_rows;
     private $query_success;
     private $fields;
+    private $insert_id;
+    
     protected function __construct($model,$host,$user,$password, $db, $port, $driver){
         $this->model = $model;
         $this->host = $host;
@@ -65,6 +67,9 @@ class Database{
     protected function get_fields(){
         return $this->fields;
     }
+    public function get_inserted_id(){
+        return $this->insert_id;
+    }
     protected function execute($query){
         $this->result = $this->con->query($query);
         // si es un select
@@ -73,7 +78,9 @@ class Database{
             return $this->parse_result();
             // si es un DML
         }elseif($this->result){
+            $this->insert_id = $this->con->insert_id;
             $this->affected_rows = $this->con->affected_rows;
+            
             return true;
         }else{
             echo $this->con->connect_error;
@@ -86,7 +93,10 @@ class Database{
     protected function parse_result(){
         $arr[$this->model] = array();
         while($row = $this->result->fetch_assoc()){
-            $arr[$this->model] = $row;
+            if($this->num_rows == 1)
+                $arr[$this->model] = $row;
+            else
+                $arr[$this->model][] = $row;
         }
         return $arr;
     }
