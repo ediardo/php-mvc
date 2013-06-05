@@ -70,7 +70,7 @@ class Database{
     public function get_inserted_id(){
         return $this->insert_id;
     }
-    protected function execute($query){
+     function execute($query){
         $this->result = $this->con->query($query);
         // si es un select
         if(is_object($this->result)){
@@ -80,7 +80,6 @@ class Database{
         }elseif($this->result){
             $this->insert_id = $this->con->insert_id;
             $this->affected_rows = $this->con->affected_rows;
-            
             return true;
         }else{
             echo $this->con->connect_error;

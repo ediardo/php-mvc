@@ -28,6 +28,8 @@ class Controller  {
     
     function __destruct(){
         $this->view->render();
+        
+        unset($_SESSION["flash"]);
     }
     function redirect($url){
         header("Location: $url") ;
@@ -43,9 +45,17 @@ class Controller  {
         return md5($password);
     }
     
-    
+    function validate_username($str){
+        return preg_match("/^[a-z\d_]{2,20}$/i",$str);
+    }
    
+    function validate_email($str){
+        return preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/", $str);
+    }
     
+    function validate_password($str){
+        return preg_match("/^[a-z0-9_-]{6,40}$/i", $str);
+    }
     
 }
 

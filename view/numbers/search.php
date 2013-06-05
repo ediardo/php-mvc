@@ -1,5 +1,8 @@
+<?php
+        echo $this->flash();
+    ?>
 <div class="leaderboard">
-"<h1>Busca un numero telefonico aqui</h1>
+<h1>Busca un numero telefonico aqui</h1>
 
     <p class="text-center">
     <form class="form-search" action="" method="post">

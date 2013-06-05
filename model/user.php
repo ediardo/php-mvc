@@ -12,18 +12,18 @@
  */
 class User extends Model {
     //put your code here
-    protected $user_id;
-    protected $username;
-    protected $password;
-    protected $email;
-    protected $status = 1;
-    protected $created;
-    protected $modified;
-    protected $group_id;
+    public $user_id;
+    public $username;
+    public $password;
+    public $email;
+    public $status = 1;
+    public $created;
+    public $modified;
+    public $group_id;
     
 
     function __construct(){
-        parent::__construct(get_class($this), 'users', get_class_vars(get_class($this)));
+        parent::__construct(get_class($this), 'users');
     }
     
     function auth($username, $password){
@@ -31,10 +31,45 @@ class User extends Model {
         if($this->get_num_rows() > 0){
             $_SESSION["user_id"] =  $result["User"]["user_id"];
             $_SESSION["username"] =  $result["User"]["username"];
+            $_SESSION["email"] =  $result["User"]["email"];
             $_SESSION["power"] =  $result["User"]["power"];
             return true;
         }else
             return false;
+    }
+    function save() {
+        $this->set_properties(get_object_vars($this));
+        return parent::save();
+    }
+    /*
+     * Sobrescritura
+     */
+    function inactivateById($id = null) {
+        $this->set_properties(get_object_vars($this));
+        parent::inactivateById($id);
+    }
+    function update($fields){
+        $fields_count = count($fields);
+        $sql = "UPDATE users SET ";
+        $x = 0;
+        foreach($fields as $field){
+            $x++;
+            if($x < $fields_count)
+                $sql .= "$field = '".$this->{$field}."',";
+            else
+                $sql .= "$field = '".$this->{$field}."'";
+            
+        }
+        $sql .= " WHERE user_id = $this->user_id";
+        return $this->execute($sql);
+    }
+    function username_is_free($username = null){
+        //var_dump(get_object_vars($this));
+        $username = (empty($username))? $this->username : $username;
+        $this->execute("SELECT user_id FROM users WHERE username = '$username'");
+        if($this->get_num_rows() > 0) //si ya esta ocupado
+            return false;
+        return true; //si esta libre 
     }
 
 }

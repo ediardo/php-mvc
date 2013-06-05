@@ -3,6 +3,9 @@
 
     <form class="form-signin" action="index.php?controller=users&action=login" method="post">
         <h2 class="form-signin-heading">Inicia sesión</h2>
+        <?php
+                echo $this->flash();
+            ?>
         <input type="text" class="input-block-level" placeholder="Usuario" name="username">
         <input type="password" class="input-block-level" placeholder="Contraseña" name="password">
         <div class="row-fluid">

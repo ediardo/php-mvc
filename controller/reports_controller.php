@@ -21,6 +21,13 @@ class ReportsController extends Controller{
     function index(){
         
     }
+    function my_reports(){
+        if($this->check_login()){
+            $user_id = $_SESSION["user_id"];
+            $this->model->searchBy($user_id);
+        }
+        
+    }
     function add(){
         
     }

@@ -42,7 +42,7 @@ class NumbersController extends Controller{
     }
     
     function search(){
-        
+        $this->view->title = "Busca numeros";
     }
 }
 
