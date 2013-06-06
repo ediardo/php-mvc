@@ -20,11 +20,11 @@
                 <a class="brand" href="#">Reportel</a>
                     <ul class="nav">
                         <li><a href="#">Buscar numero</a></li>
-                        <li><a href="#">Denunciar</a></li>
+                        <li><a href="index.php?controller=reports&action=add">Denunciar</a></li>
                         <li><a href="index.php?controller=users&action=index">Mi cuenta</a></li>
                     </ul>
                 </div>
-        </div>
+            </div>
             <?php
             include $this->content;
             ?>

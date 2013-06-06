@@ -32,10 +32,9 @@ class View {
     function flash(){
         $flash = (empty($_SESSION["flash"]))? "" : $_SESSION["flash"];
         unset($_SESSION["flash"]);
-        if(!empty($flash)){
-            
+        if(!empty($flash))
             return $flash;
-        }
+        
     }
     /** Display Template **/
     function set_title($title){

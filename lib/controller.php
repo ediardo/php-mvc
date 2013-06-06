@@ -57,6 +57,7 @@ class Controller  {
         return preg_match("/^[a-z0-9_-]{6,40}$/i", $str);
     }
     
+    
 }
 
 ?>

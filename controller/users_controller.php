@@ -79,53 +79,64 @@ class UsersController extends Controller {
     }
     
     function edit(){
-        
-        if(!empty($this->data)){
-            $fields = array();
-            if(!empty($this->data["password_1"]))
-                if(($this->validate_password($this->data["password_1"]) &&  $this->data["password_1"] == $this->data["password_2"])){
-                    $clean_password = $this->data["password_1"];
-                    $this->model->password = $this->password_salt($this->data["password_1"]);
-                    $fields[] = "password";
+        $this->view->title = "Editar mi cuenta";
+        if($this->check_login()){
+            if(!empty($this->data)){
+                $fields = array();
+                if(!empty($this->data["password_1"]))
+                    if(($this->validate_password($this->data["password_1"]) &&  $this->data["password_1"] == $this->data["password_2"])){
+                        $clean_password = $this->data["password_1"];
+                        $this->model->password = $this->password_salt($this->data["password_1"]);
+                        $fields[] = "password";
+                    }else{
+                        $errors[] = "Formato de contraseña incorrecto";
+                }if($this->validate_email($this->data["email"])){
+                    $this->model->email = strtolower(trim($this->data["email"]));
+                    $fields[] = "email";
                 }else{
-                    $errors[] = "Formato de contraseña incorrecto";
-            }if($this->validate_email($this->data["email"])){
-                $this->model->email = strtolower(trim($this->data["email"]));
-                $fields[] = "email";
-            }else{
-                $errors[] = "Formato de email incorrecto";
-            }
-            if(empty($errors)){
-                $this->model->user_id = $_SESSION["user_id"];
-                if($this->model->update($fields)){
-                    $this->view->set_flash("Tu cuenta se ha modificado exitosamente!","alert-success");
-                    $_SESSION["email"] = $this->model->email;
-                }else{
-                    $this->view->set_flash("Error al guardar el registro en la BD.","alert-error");
+                    $errors[] = "Formato de email incorrecto";
                 }
-                
-            }else{
-                $this->view->set_flash("Error en los campos, verificalos! ", "alert-error");
+                if(empty($errors)){
+                    $this->model->user_id = $_SESSION["user_id"];
+                    if($this->model->update($fields)){
+                        $this->view->set_flash("Tu cuenta se ha modificado exitosamente!","alert-success");
+                        $_SESSION["email"] = $this->model->email;
+                    }else{
+                        $this->view->set_flash("Error al guardar el registro en la BD.","alert-error");
+                    }
+
+                }else{
+                    $this->view->set_flash("Error en los campos, verificalos! ", "alert-error");
+                }
             }
+            $this->view->set("username", $_SESSION["username"]);
+            $this->view->set("email", $_SESSION["email"]);
+        }else{
+            $this->view->set_flash("No tienes permisos para ver esa area. Inicia sesión.","alert-error");
+            $this->redirect("index.php?controller=users&action=login");
         }
-        $this->view->set("username", $_SESSION["username"]);
-        $this->view->set("email", $_SESSION["email"]);
     }
     
     function drop(){
         $this->view->title = "Dar de baja";
-        $this->view->set("drop_key", md5($_SESSION["user_id"].$_SESSION["email"]));
-        if(!empty($this->data)){
-            if($this->data["drop_key"] == md5($_SESSION["user_id"].$_SESSION["email"])){
-                $this->model->user_id = $_SESSION["user_id"];
-                $this->model->inactivateByID();
-                if($this->model->get_affected_rows() == 1){
-                    $this->view->set_flash("Tu cuenta ha sido borrada exitosamente. Te extrañaremos!","alert-success");
-                    $this->logout();
-                }  else {
-                    $this->view->set_flash("Imposible dar de baja tu cuenta, contactanos para solucionar este problema. ", "alert-error");
+        
+        if($this->check_login()){
+            $this->view->set("drop_key", md5($_SESSION["user_id"].$_SESSION["email"]));
+            if(!empty($this->data)){
+                if($this->data["drop_key"] == md5($_SESSION["user_id"].$_SESSION["email"])){
+                    $this->model->user_id = $_SESSION["user_id"];
+                    $this->model->inactivateByID();
+                    if($this->model->get_affected_rows() == 1){
+                        $this->view->set_flash("Tu cuenta ha sido borrada exitosamente. Te extrañaremos!","alert-success");
+                        $this->logout();
+                    }  else {
+                        $this->view->set_flash("Imposible dar de baja tu cuenta, contactanos para solucionar este problema. ", "alert-error");
+                    }
                 }
             }
+        }else{
+            $this->view->set_flash("No tienes permisos para ver esa area. Inicia sesión.","alert-error");
+            $this->redirect("index.php?controller=users&action=login");
         }
     }
     function logout(){

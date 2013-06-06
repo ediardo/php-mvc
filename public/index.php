@@ -24,6 +24,10 @@
             include(APP_CONTROLLERS.DS.$controller.'_controller.php');
             $Number = new NumbersController($action);
             break;
+        case 'reports':
+            include(APP_CONTROLLERS.DS.$controller.'_controller.php');
+            $Report = new ReportsController($action);
+            break;
         case 'comments':
             include(APP_CONTROLLERS.DS.$controller.'_controller.php');
             

@@ -20,3 +20,9 @@ html,body{background-image: url('../img/gridbg.gif');}
     border-top:1px solid #666;
     background-color: #F0F0F0;
 }
+.container{
+    background-color: #FFF;
+    border-left:1px solid #F5F5F5;
+    border-right:1px solid #F5F5F5;
+    padding:10px;
+}

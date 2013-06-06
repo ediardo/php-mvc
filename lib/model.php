@@ -45,7 +45,9 @@ class Model extends Database{
     function deleteById($id = null){
         
     }
-    
+    function search_by_number($number){
+        return $this->model->execute("SELECT * FROM numbers WHERE number = '$number'");
+    }
     function inactivateById($id = null){
         $magic_id_name = $this->get_id_name();
         $id = (empty($id))? $this->properties[$magic_id_name] : $id;
