@@ -48,6 +48,14 @@ class User extends Model {
         $this->set_properties(get_object_vars($this));
         parent::inactivateById($id);
     }
+    
+    function recover_password_hash(){
+        
+    }
+    
+    function search_by_username($username){
+        return $this->execute("SELECT * FROM users WHERE username = '$username'");
+    }
     function update($fields){
         $fields_count = count($fields);
         $sql = "UPDATE users SET ";

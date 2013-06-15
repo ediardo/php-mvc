@@ -1,5 +1,5 @@
 <h2>Mis reportes</h2>
-<p>Aquí podrás ver todos los reportes que haz realizado</p>
+<p>Aquí podrás ver todos los reportes que has realizado</p>
 
 <div class="container-fluid">
   <div class="row-fluid">

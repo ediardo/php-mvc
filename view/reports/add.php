@@ -9,14 +9,14 @@
             <div class="control-group">
               <label class="control-label" for="number_txt">Telefono que deseas denunciar</label>
               <div class="controls">
-                <input type="number" id="number_txt" required placeholder="Telefono" name="number_txt" autocomplete="off" >
+                <input type="text" id="number_txt" required placeholder="Telefono" name="number_txt" autocomplete="off" >
               </div>
             </div>
 
             <div class="control-group">
-              <label class="control-label" for="password_1">Poseedor de la linea</label>
+              <label class="control-label" for="owner_txt">Poseedor de la linea</label>
               <div class="controls">
-                <input type="text" required id="owner_txt" placeholder="Poseedor de la linea" name="poseedor_txt" >
+                <input type="text" required id="owner_txt" placeholder="Poseedor de la linea" name="owner_txt" >
               </div>
             </div>
 
@@ -28,10 +28,10 @@
             </div>
 
              <div class="control-group">
-                <label class="control-label" for="email">Notificaciones</label>
+                <label class="control-label" for="allow_notification_check">Notificaciones</label>
                 <div class="controls">
                   <label class="checkbox">
-                    <input type="checkbox" value="">
+                    <input type="checkbox" value="1" name="allow_notification_check">
                     Alertarme si hay nuevas denuncias para este numero
                   </label>
                 </div>

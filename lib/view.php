@@ -29,6 +29,10 @@ class View {
         $_SESSION["flash"] .= $message;
         $_SESSION["flash"] .= '</div>';
     }
+    
+    function error404(){
+        
+    }
     function flash(){
         $flash = (empty($_SESSION["flash"]))? "" : $_SESSION["flash"];
         unset($_SESSION["flash"]);
@@ -40,11 +44,19 @@ class View {
     function set_title($title){
         $this->title = $title;
     }
-    function render(){
+    function render($error){
         
         @extract($this->variables);
-        $this->content = APP_ROOT.DS."view".DS.$this->controller.DS.$this->action.".php";
-        include(APP_ROOT.DS."view".DS."layout".DS.$this->layout.".php");
+        switch($error){
+            case "404":
+                include(APP_ROOT.DS."view".DS."error".DS."404.php");
+                break;
+            default:
+                $this->content = APP_ROOT.DS."view".DS.$this->controller.DS.$this->action.".php";
+                include(APP_ROOT.DS."view".DS."layout".DS.$this->layout.".php");
+                    
+        }
+        
        
     }
     

@@ -8,14 +8,14 @@
 class UsersController extends Controller {
     
     function __construct($action){
-        if($action == "login" || $action == "add")
+        if($action == "login" || $action == "add" || $action == "recover")
             $this->layout = "login";
         else
             $this->layout = "layout";
         $this->controller = 'users';
         $this->action = $action;
-        parent::__construct('User');
-        $this->$action();
+        parent::__construct('User',get_class_methods($this));
+        @$this->$action();
         
     }
     function index(){
@@ -58,7 +58,7 @@ class UsersController extends Controller {
                 }else{
                     $this->model->group_id = 2;
                     if($this->model->save()){
-                        $this->new_account_email($this->model->get_inserted_id());
+                        $this->_new_account_email($this->model->get_inserted_id());
                         $this->view->set_flash("Tu cuenta se ha creado exitosamente!","alert-success");
                         $this->model->auth($this->model->username, $this->model->password);
                         $this->redirect("index.php?controller=numbers&action=search");
@@ -147,6 +147,14 @@ class UsersController extends Controller {
             $this->redirect("index.php?controller=numbers&action=search");
         }
     }
+    function recover(){
+        $this->view->title = "Recuperar contraseña";
+        if(!$this->check_login()){
+            if(!empty($this->data)){
+                
+            }
+        }
+    }
     function login(){
         $this->view->title = "Login";
         // si se envio datos por POST
@@ -160,7 +168,7 @@ class UsersController extends Controller {
         }
     }
     
-    function new_account_email($user_id){
+    function _new_account_email($user_id = null){
         $this->model->user_id = $user_id;
         $result = $this->model->searchById();
         if($this->model->get_num_rows() == 1){
@@ -187,6 +195,10 @@ class UsersController extends Controller {
             
         }
         return false;
+        
+    }
+    
+    function _recover_password_email($user_id = null){
         
     }
 }

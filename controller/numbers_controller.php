@@ -14,14 +14,22 @@
 class NumbersController extends Controller{
     //put your code here
     
-     function __construct($action){
+     function __construct($action = null){
         $this->layout = "layout";
         $this->controller = 'numbers';
         $this->action = $action;
         parent::__construct('Number');
-        $this->$action();
+        if($this->action != "_number_exists")
+            $this->$action();
         
     }
+    
+    function __destruct(){
+        if($this->action != "_number_exists")
+            $this->view->render();
+        unset($_SESSION["flash"]);
+    }
+    
     /*
      * Muestra el listado de reportes
      * @
@@ -43,6 +51,10 @@ class NumbersController extends Controller{
     
     function search(){
         $this->view->title = "Busca numeros";
+    }
+    
+    function _number_exists($number){
+        return $this->model->search_by_number($number);
     }
 }
 

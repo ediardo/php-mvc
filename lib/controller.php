@@ -12,25 +12,32 @@
  */
 class Controller  {
     protected $controller;
+    protected $action;
     protected $model;
     protected $view;
     protected $params;
     protected $layout;
+    protected $error;
     
-    function __construct($model){
-        session_start();
+    function __construct($model,$methods){
+        @session_start();
         include_once(APP_MODELS.DS.strtolower($model).'.php');
         $this->model = new $model();
         $this->params = $_GET;
         $this->data = $_POST;
         $this->view = new View($this->layout,$this->controller, $this->action);
+        if(strpos($this->action, "_") == 0 || !in_array($this->action, $methods)){
+            $this->error = "404";
+            $this->__destruct();
+        }
     }
     
     function __destruct(){
-        $this->view->render();
-        
+        $this->view->render($this->error);
         unset($_SESSION["flash"]);
     }
+    
+    
     function redirect($url){
         header("Location: $url") ;
     }

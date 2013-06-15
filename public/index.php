@@ -15,22 +15,22 @@
     include(APP_ROOT.DS.'lib'.DS.'view.php');
     $controller = $_GET['controller'];
     $action = $_GET['action'];
+    $controllers = scandir(APP_CONTROLLERS);
+    foreach($controllers as $file){
+        if($file != ".." && $file != ".")
+            include(APP_CONTROLLERS.DS.$file);
+    }
     switch($controller){
         case 'users':
-            include(APP_CONTROLLERS.DS.$controller.'_controller.php');
             $User = new UsersController($action);
             break;
         case 'numbers':
-            include(APP_CONTROLLERS.DS.$controller.'_controller.php');
             $Number = new NumbersController($action);
             break;
         case 'reports':
-            include(APP_CONTROLLERS.DS.$controller.'_controller.php');
             $Report = new ReportsController($action);
             break;
         case 'comments':
-            include(APP_CONTROLLERS.DS.$controller.'_controller.php');
-            
             $Comment = new CommentsController($action);
             break;
     }

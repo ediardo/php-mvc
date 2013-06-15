@@ -45,9 +45,7 @@ class Model extends Database{
     function deleteById($id = null){
         
     }
-    function search_by_number($number){
-        return $this->model->execute("SELECT * FROM numbers WHERE number = '$number'");
-    }
+    
     function inactivateById($id = null){
         $magic_id_name = $this->get_id_name();
         $id = (empty($id))? $this->properties[$magic_id_name] : $id;
@@ -69,12 +67,13 @@ class Model extends Database{
      * 
      */
     function save(){
+        var_dump($this->properties);
         if(empty($this->properties[0])){
             
             $sql_verb = "insert";
             $sql = "INSERT INTO $this->table SET ";
         }else{
-            echo "update";
+            //echo "update";
             $sql_verb = "update";
             $sql = "UPDATE $this->table SET ";
         }
@@ -82,41 +81,57 @@ class Model extends Database{
         $fields = "";
         $values = "";
         $fields_count = count($this->properties);
+        //echo $fields_count;
         $x = 0;
         foreach($this->properties as $field => $value){
-            
+            ++$x;
             switch(gettype($value)){
                 case "string":
-                    if($x == $fields_count-1)
+                    if($x == $fields_count)
                         $sql .= "$field = '".$value."'";
                     else
                         $values .= "$field = '".$value."',";
                     break;
                 case "integer":
-                    if($x == $fields_count-1)
+                    if($x == $fields_count)
                         $values .= "$field = ".$value."";    
                     else
                         $values .= "$field = ".$value.",";  
                     break;
             }
-           
-            ++$x;
+           if($field == "created"){
+                if($x == $fields_count)
+                    $values .= "created = NOW()";
+                else 
+                    $values .= "created = NOW(),";
+                
+           }
+           if($field == "modified"){
+                if($x == $fields_count)
+                    $values .= "modified = NOW()";
+                else 
+                    $values .= "modified = NOW(),";
+                
+           }
                 
         }
+        /*
         if($sql_verb == "insert"){
             if(key_exists("created", $this->properties))
-               $values .= ",created = NOW()";
+              
             if(key_exists("modified", $this->properties)){
-               $values .= ",modified = NOW()";
+               
             }
         }
+         * 
+         */
         if($sql_verb == "update"){
             if(key_exists("modified", $this->properties))
                $values .= ",modified = NOW()";
         }
 
         $sql .= $fields." ".$values;
-        //echo $sql;
+        echo $sql;
         return $this->execute($sql);
         
     }

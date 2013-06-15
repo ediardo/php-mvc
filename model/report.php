@@ -12,12 +12,15 @@
  */
 class Report extends Model {
     //put your code here
-    protected $report_id;
-    protected $number_id;
-    protected $description;
-    protected $status;
-    protected $created;
-    protected $modified;
+    public $report_id;
+    public $number_id;
+    public $user_id;
+    public $description;
+    public $status = 1;
+    public $allow_notification = 0;
+    public $created;
+    public $modified;
+    
     
 
     function __construct(){
@@ -27,8 +30,9 @@ class Report extends Model {
         $this->set_properties(get_object_vars($this));
         parent::searchById($id);
     }
-    function test(){
-        echo "test";
+    function save() {
+        $this->set_properties(get_object_vars($this));
+        return parent::save();
     }
     
 }
