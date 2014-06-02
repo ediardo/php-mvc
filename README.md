@@ -1,4 +1,6 @@
-reportel
+PHP MVC
 ========
 
-Clase Prog Web
+A MVC framework experiment, inspired in CakePHP
+
+
